@@ -9,6 +9,7 @@ AWS Amplify
 AWS CodeCommit
 AWS Cognito
 AWS DynamoDB
+API Gateway
 IAM 
 
 What we are building is a basic UBER-TYPE application but it’s serverless.
