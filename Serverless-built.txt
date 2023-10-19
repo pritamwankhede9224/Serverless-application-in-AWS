@@ -1,0 +1,75 @@
+﻿Please refer to the AWS Doc for a detailed process of building a Serverless Application using AWS.
+
+
+https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
+
+
+What we are building is a basic UBER-TYPE application but it’s serverless.
+
+
+Let me show you the workflow:
+
+
+User → interacts with application (web hosted site / app)  ->  Signs in/ logs in (gets authorization) -> user gets authenticated -> books a ride (puts data, location etc) -> data is sent to a database where its saved -> also data is sent to a function which assigns a ride -> user get details of the ride -> intend successful.
+
+
+Installing and starting with getting the application repository. (here we will use an app called wild-rydes, publicly available in github)
+
+
+1. Install AWS shell
+pip install aws-shell
+
+
+2. Configure AWS shell
+aws configure
+
+
+3. Create a repo on AWS CodeCommit
+aws codecommit create-repository --repository-name wild-rydees
+
+
+4. Clone the source code from Github
+git clone https://github.com/aws-samples/aws-serverless-webapp-workshop
+
+
+5. Split the WildRydes app into a branch
+cd aws-serverless-webapp-workshop
+git subtree split -P ./resources/code/WildRydesVue/ -b WildRydesVue
+
+
+6. Create a git repo and populate it with source code of WildRydesVue
+mkdir ../wild-rydes
+cd ../wild-rydes
+git init
+git pull ../aws-serverless-webapp-workshop WildRydesVue
+
+
+7. Create a repo and AWS CodeCommit and push this source code
+git remote add origin codecommit://wild-rydes
+git push -u origin master
+
+
+After pushing the code into aws codecommit(AWS’s repository) we can use Amplify to launch the application.
+
+
+8. Install amplify cli
+npm install -g @aws-amplify/cli
+amplify init
+
+
+Then we use Cognito to add user pool (app authentication step)
+
+
+9. Add user pool to amplify app
+amplify add auth
+
+
+10. Push changes to the codecommit
+git add .
+git commit -m "made changes"
+git push
+
+
+After this, we would have to configure Dynamo DB (serverless Database) and Lambda Function.
+Which we will be doing via the AWS console itself. 
+Please find the .py file attached used in the lambda function.
