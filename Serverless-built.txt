@@ -72,4 +72,4 @@ git push
 
 After this, we would have to configure Dynamo DB (serverless Database) and Lambda Function.
 Which we will be doing via the AWS console itself. 
-Please find the .py file attached used in the lambda function.
+Please find the .js file attached used in the lambda function.
